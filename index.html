@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+
+
+
+    <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
+    <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+
+    <script
+        src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
+    <link rel='stylesheet'
+        href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.css'
+        type='text/css' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.js'></script>
+    <link rel='stylesheet' href='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-draw/v1.0.0/mapbox-gl-draw.css'
+        type='text/css' />
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        #map {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 100%;
+        }
+        .geocoder {
+        height: 100px;
+        width: 150px;
+        position: absolute;
+        top: 40px;
+        left: 10px;
+        background-color: rgba(255, 255, 255, .9);
+        padding: 15px;
+        text-align: left;
+        font-family: 'Arial';
+        margin: 0;
+        font-size: 13px;
+    }
+    #instructions {
+        position:absolute;
+        height: 50px;
+        margin:20px;
+        width: 25%;
+        top:0;
+        bottom:0;
+        padding: 20px;
+        background-color: rgba(255,255,255,0.9);
+        overflow-y: scroll;
+        font-family: sans-serif;
+    }
+    </style>
+
+
+    <title>Home</title>
+
+
+</head>
+
+<body>
+    <div>
+        <nav class="navbar navbar-expand-lg navbar-light sticky-top">
+            <a class="navbar-brand" href="index.html"><img class="logo mt-2"
+                    src="https://cdn.freebiesupply.com/logos/large/2x/assam-1-logo-svg-vector.svg"></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Map</a>
+                    </li>
+
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/analysis.html">Analysis</a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/login.html">Log out</a>
+                    </li>
+
+                </ul>
+
+
+                <button type="button" onclick="generateOTP()" id="btnToken">Generate Token</button>
+                <input type="text" id="tokenDisplay" disabled>
+
+
+
+            </div>
+        </nav>
+
+
+        <!--  the map -->
+        <div id='map'></div>
+        <!-- geocoder search input -->
+        <div class="geocoder">
+            <div id="geocoder"></div>
+        </div>
+        <!-- left side instructions -->
+        <div id='instructions'>
+            <div id="calculated-line"></div>
+        </div>
+    </div>
+
+
+
+    <script src="https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js"></script>
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
+        type="text/css" />
+
+    <script>
+        function generateOTP() {
+            var fourdigitsrandom = Math.floor(1000 + Math.random() * 9000);
+            OTPgenerate = fourdigitsrandom;
+            var tokenDisplay = document.getElementById("tokenDisplay");
+            tokenDisplay.value = fourdigitsrandom;
+
+            console.log(fourdigitsrandom);
+
+            alert("OTP expires in exactly 3 minutes");
+
+            sessionStorage.setItem("OTP", fourdigitsrandom)
+
+            var status = document.getElementById('btnToken');
+            status.disabled = true;
+
+
+            setTimeout(toggle, 180000);
+
+            function toggle() {
+                if (status.disabled == true) {
+                    status.disabled = false;
+                }
+            }
+
+
+        };
+
+        mapboxgl.accessToken = 'pk.eyJ1IjoiZGVzbW9uZG1pbGVzNjkiLCJhIjoiY2tkb2RqOG5wMDNubDJ0b2RlbGt0NTVjdCJ9.i4KPah6AnqIxbTwhgUeyTg';
+        var instructions = document.getElementById('instructions');
+        var map = new mapboxgl.Map({
+            container: 'map', // container id
+            style: 'mapbox://styles/mapbox/streets-v9', //hosted style id
+            center: [92.9376,26.2006 ], // starting position
+            zoom: 7 // starting zoom
+        });
+        //  geocoder here
+        var geocoder = new MapboxGeocoder({
+            accessToken: mapboxgl.accessToken,
+            // limit results to Australia
+            //country: 'IN',
+        });
+
+        // After the map style has loaded on the page, add a source layer and default
+        // styling for a single point.
+        map.on('load', function () {
+            // Listen for the `result` event from the MapboxGeocoder that is triggered when a user
+            // makes a selection and add a symbol that matches the result.
+            geocoder.on('result', function (ev) {
+                console.log(ev.result.center);
+
+            });
+        });
+        var draw = new MapboxDraw({
+            displayControlsDefault: false,
+            controls: {
+                line_string: true,
+                trash: true
+            },
+            styles: [
+                // ACTIVE (being drawn)
+                // line stroke
+                {
+                    "id": "gl-draw-line",
+                    "type": "line",
+                    "filter": ["all", ["==", "$type", "LineString"], ["!=", "mode", "static"]],
+                    "layout": {
+                        "line-cap": "round",
+                        "line-join": "round"
+                    },
+                    "paint": {
+                        "line-color": "#3b9ddd",
+                        "line-dasharray": [0.2, 2],
+                        "line-width": 4,
+                        "line-opacity": 0.7
+                    }
+                },
+                // vertex point halos
+                {
+                    "id": "gl-draw-polygon-and-line-vertex-halo-active",
+                    "type": "circle",
+                    "filter": ["all", ["==", "meta", "vertex"], ["==", "$type", "Point"], ["!=", "mode", "static"]],
+                    "paint": {
+                        "circle-radius": 10,
+                        "circle-color": "#FFF"
+                    }
+                },
+                // vertex points
+                {
+                    "id": "gl-draw-polygon-and-line-vertex-active",
+                    "type": "circle",
+                    "filter": ["all", ["==", "meta", "vertex"], ["==", "$type", "Point"], ["!=", "mode", "static"]],
+                    "paint": {
+                        "circle-radius": 6,
+                        "circle-color": "#3b9ddd",
+                    }
+                },
+            ]
+        });
+        // add the draw tool to the map
+        map.addControl(draw);
+
+        // add create, update, or delete actions
+        map.on('draw.create', updateRoute);
+        map.on('draw.update', updateRoute);
+        map.on('draw.delete', removeRoute);
+
+        // use the coordinates you just drew to make your directions request
+        function updateRoute() {
+            removeRoute(); // overwrite any existing layers
+            var data = draw.getAll();
+            var lastFeature = data.features.length - 1;
+            var coords = data.features[lastFeature].geometry.coordinates;
+            var newCoords = coords.join(';');
+            getMatch(newCoords);
+        }
+
+        // make a directions request
+        function getMatch(e) {
+            var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + e
+                + '?geometries=geojson&steps=true&access_token=' + mapboxgl.accessToken;
+            var req = new XMLHttpRequest();
+            req.responseType = 'json';
+            req.open('GET', url, true);
+            req.onload = function () {
+                var jsonResponse = req.response;
+                var distance = jsonResponse.routes[0].distance * 0.001;
+                var duration = jsonResponse.routes[0].duration / 60;
+                var steps = jsonResponse.routes[0].legs[0].steps;
+                var coords = jsonResponse.routes[0].geometry;
+                //  console.log(steps);
+                console.log(coords);
+                //  console.log(distance);
+                // console.log(duration);
+
+                // get route directions on load map
+                steps.forEach(function (step) {
+                    instructions.insertAdjacentHTML('beforeend', '<p>' + step.maneuver.instruction + '</p>');
+                });
+                // get distance and duration
+                instructions.insertAdjacentHTML('beforeend', '<p>' + 'Distance: ' + distance.toFixed(2) + ' km<br>Duration: ' + duration.toFixed(2) + ' minutes' + '</p>');
+
+                // add the route to the map
+                addRoute(coords);
+                //  console.log(coordinates);
+
+            };
+            req.send();
+        }
+
+        // adds the route as a layer on the map
+        function addRoute(coords) {
+            // check if the route is already loaded
+            if (map.getSource('route')) {
+                map.removeLayer('route');
+                map.removeSource('route')
+            } else {
+                map.addLayer({
+                    "id": "route",
+                    "type": "line",
+                    "source": {
+                        "type": "geojson",
+                        "data": {
+                            "type": "Feature",
+                            "properties": {},
+                            "geometry": coords
+                        }
+                    },
+                    "layout": {
+                        "line-join": "round",
+                        "line-cap": "round"
+                    },
+                    "paint": {
+                        "line-color": "#1db7dd",
+                        "line-width": 8,
+                        "line-opacity": 0.8
+                    }
+                });
+            };
+        }
+
+        // remove the layer if it exists
+        function removeRoute() {
+            if (map.getSource('route')) {
+                map.removeLayer('route');
+                map.removeSource('route');
+                instructions.innerHTML = '';
+            } else {
+                return;
+            }
+        }
+        document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
+    </script>
+
+
+</body>
+
+</html>

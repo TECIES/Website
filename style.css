@@ -1,0 +1,102 @@
+body{
+    padding:0px;
+    margin: 0px;
+    /* overflow-x: hidden; */
+
+}
+
+html{
+    height: 100%;
+    width: 100%;
+}
+
+.logo{
+    height: 80px;
+    width: 100px;
+}
+@media(min-width: 1000px ){
+    nav{
+        height:60px;
+    }
+}
+
+@media (max-width: 992px) {
+    .navbar-brand{
+        margin-top:-25px
+    }
+}
+
+.navbar-brand{
+    padding-top:0
+}
+
+
+nav{
+   position: sticky;
+   background-color: rgb(171, 248, 140);
+}
+
+.nav-item{
+    margin-bottom: 1px;
+    margin-right: 20px;
+}
+.nav-item:hover{
+ background-color: rgb(145, 229, 145);
+
+}
+
+.blog-footer {
+    padding: 2.5rem 0;
+    color: black;
+    height:40px;
+    background-color: rgb(252, 219, 190);
+    border-top: .05rem solid #e5e5e5;
+}
+
+#footer-a{
+    padding-left: 30px; 
+    color: black;
+    text-decoration: none;
+}
+
+#footer-a:hover{
+    color: rgb(2, 41, 2);
+}
+
+#btnToken{
+    width: 160px;
+    height: 40px;
+    text-align: center;
+    padding-top: 8px;
+    margin-right: 3px;
+    text-decoration: none;
+    border-radius:25px;
+    background-color: rgb(98, 240, 122);
+    font-size: 18px;
+    color: black;
+    outline: none;
+    font-weight: 700;
+    cursor: pointer;
+
+}
+
+#map { 
+    height: 100%;
+    width: 100%;
+     }
+
+#info {
+        display: block;
+        position: absolute;
+        bottom: 0px;
+        z-index: 5;
+        margin: 0px auto;
+        width: 340px;
+        padding: 10px;
+        border: none;
+        border-radius: 3px;
+        font-size: 12px;
+        text-align: center;
+        color: #222;
+        background-color: rgb(171, 248, 140);
+    }
