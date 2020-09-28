@@ -22,6 +22,8 @@
 
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.44.2/mapbox-gl.css' rel='stylesheet' />
+    <script src='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.js'></script>
+    <link href='https://api.mapbox.com/mapbox-gl-js/v1.12.0/mapbox-gl.css' rel='stylesheet' />
 
     <script
         src='https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v2.3.0/mapbox-gl-geocoder.min.js'></script>
@@ -40,23 +42,18 @@
 
         #map {
             position: absolute;
-            top: 0;
-            bottom: 0;
             width: 100%;
+            height: 100%;
         }
+
         .geocoder {
-        height: 100px;
-        width: 150px;
-        position: absolute;
-        top: 40px;
-        left: 10px;
-        background-color: rgba(255, 255, 255, .9);
-        padding: 15px;
-        text-align: left;
-        font-family: 'Arial';
-        margin: 0;
-        font-size: 13px;
-    }
+            height: 40px;
+            width: 260px;
+            margin-top: 40px;
+        }
+
+
+        /*
     #instructions {
         position:absolute;
         height: 50px;
@@ -68,7 +65,8 @@
         background-color: rgba(255,255,255,0.9);
         overflow-y: scroll;
         font-family: sans-serif;
-    }
+    } 
+     */
     </style>
 
 
@@ -95,11 +93,11 @@
 
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/analysis.html">Analysis</a>
+                        <a class="nav-link" href="analysis.html">Analysis</a>
                     </li>
 
                     <li class="nav-item">
-                        <a class="nav-link" href="/login.html">Log out</a>
+                        <a class="nav-link" href="login.html">Log out</a>
                     </li>
 
                 </ul>
@@ -120,7 +118,9 @@
         <div class="geocoder">
             <div id="geocoder"></div>
         </div>
-        <!-- left side instructions -->
+
+        <!--left side instructions -->
+
         <div id='instructions'>
             <div id="calculated-line"></div>
         </div>
@@ -135,9 +135,38 @@
         href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.1.0/mapbox-gl-directions.css"
         type="text/css" />
 
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
+
     <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyCqvf11UNCKl8UEak0GDj_CvO-5314VZqY",
+            authDomain: "assam-hackathon-35316.firebaseapp.com",
+            databaseURL: "https://assam-hackathon-35316.firebaseio.com",
+            projectId: "assam-hackathon-35316",
+            storageBucket: "assam-hackathon-35316.appspot.com",
+            messagingSenderId: "1015106989099",
+            appId: "1:1015106989099:web:a18c19c6397bbb1f1fce6e",
+            measurementId: "G-YFR2RN19ZQ"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+
+    </script>
+
+    <script>
+        var fourdigitrandom = null
         function generateOTP() {
-            var fourdigitsrandom = Math.floor(1000 + Math.random() * 9000);
+            fourdigitsrandom = Math.floor(1000 + Math.random() * 9000);
             OTPgenerate = fourdigitsrandom;
             var tokenDisplay = document.getElementById("tokenDisplay");
             tokenDisplay.value = fourdigitsrandom;
@@ -168,7 +197,7 @@
         var map = new mapboxgl.Map({
             container: 'map', // container id
             style: 'mapbox://styles/mapbox/streets-v9', //hosted style id
-            center: [92.9376,26.2006 ], // starting position
+            center: [92.9376, 26.2006], // starting position
             zoom: 7 // starting zoom
         });
         //  geocoder here
@@ -206,7 +235,7 @@
                         "line-join": "round"
                     },
                     "paint": {
-                        "line-color": "#3b9ddd",
+                        "line-color": "#8B4513",
                         "line-dasharray": [0.2, 2],
                         "line-width": 4,
                         "line-opacity": 0.7
@@ -252,7 +281,8 @@
             getMatch(newCoords);
         }
 
-        // make a directions request
+        var coords;
+        var currentUser;
         function getMatch(e) {
             var url = 'https://api.mapbox.com/directions/v5/mapbox/driving/' + e
                 + '?geometries=geojson&steps=true&access_token=' + mapboxgl.accessToken;
@@ -264,9 +294,14 @@
                 var distance = jsonResponse.routes[0].distance * 0.001;
                 var duration = jsonResponse.routes[0].duration / 60;
                 var steps = jsonResponse.routes[0].legs[0].steps;
-                var coords = jsonResponse.routes[0].geometry;
+                coords = jsonResponse.routes[0].geometry;
                 //  console.log(steps);
                 console.log(coords);
+                firebase.database().ref().set({
+                    coordinates: coords,
+                    OTP: fourdigitrandom
+                });
+
                 //  console.log(distance);
                 // console.log(duration);
 
@@ -327,6 +362,7 @@
             }
         }
         document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
+
 
     </script>
 

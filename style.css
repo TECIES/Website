@@ -79,11 +79,12 @@ nav{
     cursor: pointer;
 
 }
-
-#map { 
-    height: 100%;
+/* 
+#map {
+    position: absolute;
     width: 100%;
-     }
+    height: max-content;
+} */
 
 #info {
         display: block;
