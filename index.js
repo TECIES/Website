@@ -143,7 +143,7 @@ function getMatch(e) {
 
         if (checkOTP(fourdigitsrandom)) {
             firebase.database().ref().child("Users").push().set({
-                
+
                 OTP: fourdigitsrandom,
                 coordinates: coords,
             });
