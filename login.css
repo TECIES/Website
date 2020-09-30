@@ -31,6 +31,10 @@ body,html{
     box-sizing: border-box;
 }
 
+form{
+    height: 200px;
+}
+
 form .txt_field{
     position: relative;
     border-bottom: 2px solid #adadad;

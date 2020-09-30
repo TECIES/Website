@@ -1,79 +1,139 @@
 <!DOCTYPE html>
 <html lang="en">
 
-<head>
-    <meta charset="UTF-8">
+<head> <!--Important Bootstrap links -->
+    <meta charset="UTF-8"> 
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-    crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-    crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Material+Icons">
 
 
     <title>Analysis Page</title>
-    
+
 
 </head>
 
-<body>
+<body style="background-color: rgb(245, 241, 241);"> <!-- Navbar area-->
     <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="index.html"><img class="logo mt-2"
                 src="https://cdn.freebiesupply.com/logos/large/2x/assam-1-logo-svg-vector.svg"></a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link " href="index.html">Map</a>
-                    </li>
-                    
-                    
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#">Analysis</a>
-                    </li>
-  
-                    <li class="nav-item">
-                      <a class="nav-link" href="login.html">Log out</a>
-                    </li>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link " href="index.html">Map</a>
+                </li>
 
-                </ul>
 
-                <form class="form-inline my-2 my-lg-0">
-                    <button class="btn btn-outline my-sm-0" type="submit">Search</button>
-                    <input class="form-control mr-sm-2 " type="search" placeholder="Search" aria-label="Search">
-                    
-                </form>
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Analysis</a>
+                </li>
 
-            </div>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Log out</a>
+                </li>
+
+            </ul>
+
+            
+
+        </div>
     </nav>
 
+    <div class="table-responsive col-md-6 offset-md-3"> <!-- Table with its contents-->
+    <table class="content-table table justify-content-center">
+        <thead>
+            <tr>
+                <th>SR Number</th>
+                <th>Email Address</th>
+                <th>Car Number</th>
+                <th>Token</th>
+            </tr>
+        </thead>
+        <tbody id="tableBody">
+           
+        </tbody>
+    </table>
+</div>
 
+<!--Footer Area -->
+    <footer class="blog-footer"> 
+        <div class="container sticky">
+            <div class="row justify-content-center">
+                <p>Copyright by team TEC-IES © <a href="#">Back to top ↑</a></p>
+            </div>
+
+            
+
+        </div>
+    </footer>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <!-- Insert these scripts at the bottom of the HTML, but before you use any Firebase services -->
+
+    <!-- Add Firebase products that you want to use -->
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-firestore.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
     
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
 
-    <footer class="blog-footer">
-        <div class="container"> 
-            <div class="row justify-content-center">       
-                <p>Copyright by team TEC-IES ©</p>
-            </div>
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyCqvf11UNCKl8UEak0GDj_CvO-5314VZqY",
+            authDomain: "assam-hackathon-35316.firebaseapp.com",
+            databaseURL: "https://assam-hackathon-35316.firebaseio.com",
+            projectId: "assam-hackathon-35316",
+            storageBucket: "assam-hackathon-35316.appspot.com",
+            messagingSenderId: "1015106989099",
+            appId: "1:1015106989099:web:a18c19c6397bbb1f1fce6e",
+            measurementId: "G-YFR2RN19ZQ"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
 
-            <div class="row justify-content-center">       
-                <a href="#">Back to top ↑</a>
-            </div>
-       
-       </div>
-   </footer>
-     
+    </script>
+
+    <script>
+
+        rootRef = firebase.database().ref().child("Users")
+
+        rootRef.on("child_added", (data)=>{
+
+            var carNumber = data.child("CarNumber").val()
+            var otp = data.child("OTP").val()
+            var srno = data.child("SRNO").val()
+            var email = data.child("email").val()
+
+            $("#tableBody").append(
+                "<tr><td>"+ srno + "</td><td>"+ email +"</td><td>"+ carNumber +"</td><td>"+ otp +"</td></tr>"
+            )
+        })
+
+
+
+    </script>
+
 </body>
+
 </html>

@@ -19,29 +19,26 @@
         integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
         crossorigin="anonymous"></script>
     <title>Log In</title>
-</head>
+</head>l
 
 
 <body>
-    <div class="center">
+
+    <div class="center col-9 col-sm-6 ">
         <h1>Login</h1>
 
-        <form action="index.html" id="frm" >
+        <form action="index.html" id="frm">
             <div class="row txt_field">
                 <input type="email" id="input-email" required>
-                <span></span>
                 <label>Username</label>
 
             </div>
             <div class="row txt_field">
                 <input type="password" id="input-password" required>
-                <span></span>
                 <label>Password</label>
             </div>
-            <button onclick="login()" id="submit" class="offset-md-3 justify-content-center">Submit</button>
-    </div>
-    </form>
-    </div>
+            <button onclick="login()" id="submit" class="justify-content-center offset-md-4">Submit</button>
+        </form>
     </div>
 
     <!-- The core Firebase JS SDK is always required and must be listed first -->
@@ -100,29 +97,6 @@
                 // ...
             });
         }
-
-
-
-        // firebase.auth().onAuthStateChanged(function (user) {
-        //     if (user) {
-        //         // User is signed in.
-        //         var email = user.email;
-        //         writeDatabase(user)
-        //         console.log("Auth state changed Function called")
-        //         completed = true;
-        //     } else {
-        //     }
-        // });
-
-
-
-        // function writeDatabase(user) {
-        //     firebase.database().ref('users/' + user.uid).set({
-        //         email: user.email,
-        //         OTP: null
-        //     });
-
-        // }
 
 
     </script>
