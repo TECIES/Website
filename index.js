@@ -140,10 +140,14 @@ function getMatch(e) {
         coords = jsonResponse.routes[0].geometry;
         //  console.log(steps);
         console.log(coords);
-        firebase.database().ref().child("Users").push().set({
-            OTP: fourdigitsrandom,
-            coordinates: coords,
-        });
+
+        if (checkOTP(fourdigitsrandom)) {
+            firebase.database().ref().child("Users").push().set({
+                
+                OTP: fourdigitsrandom,
+                coordinates: coords,
+            });
+        }
 
         //  console.log(distance);
         // console.log(duration);
@@ -203,5 +207,24 @@ function removeRoute() {
     } else {
         return;
     }
+}
+
+function checkOTP(otp) {
+    var validOtp = true
+    rootRef = firebase.database().ref().child("Users")
+    rootRef.on("child_added", (data) => {
+        var token = data.child("OTP").val()
+
+        if (token != otp){
+            validOtp = true
+            console.log("Valid OTP")
+        }
+        else{
+            validOtp = false
+            console.log("OTP is already in use")
+        }
+    })
+
+    return validOtp
 }
 document.getElementById('geocoder').appendChild(geocoder.onAdd(map));
