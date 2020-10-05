@@ -3,5 +3,5 @@
 * Searching for any place using the search box
 * Marking a route
 * Deleting the recent route
-* Generating 4 digit token
+* Generating 4 digit tokens
 * Viewing the analysis of every vehicle driver
